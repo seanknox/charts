@@ -30,3 +30,13 @@ spec:
           value: "https://{{ template "fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.https.externalPort }}/go"
         resources:
 {{ toYaml .Values.agent.resources | indent 12 }}
+        volumeMounts:
+        - name: agent-config
+          mountPath: /godata/config
+      volumes:
+      - name: agent-config
+        configMap:
+          name: {{ template "fullname" . }}-agent
+          items:
+          - key: autoregister.properties
+            path: autoregister.properties

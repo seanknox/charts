@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 server:
   image:
-    repository: gocd/gocd-server
-    tag: "v17.3.0"
+    repository: quay.io/knoxville/gocd-server-stdout
+    tag: "v2"
     pullPolicy: IfNotPresent
   # See minimum server requirements: https://docs.gocd.io/current/installation/system_requirements.html
   # resources:
@@ -15,6 +15,7 @@ server:
   #     cpu: 200m
   #     memory: 1024Mi
 agent:
+  autoRegisterKey: gocd
   replicaCount: 2
   ## Minimun number of workers available after an eviction
   ## ref: https://kubernetes.io/docs/admin/disruptions/

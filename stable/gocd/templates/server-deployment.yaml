@@ -35,6 +35,9 @@ spec:
           mountPath: /godata
         - name: gohome
           mountPath: /home/go
+        - mountPath: /tmp
+          name: server-config
+          readOnly: false
       volumes:
       - name: godata
       {{- if .Values.persistence.enabled }}
@@ -50,3 +53,9 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
+      - name: server-config
+        configMap:
+          name: {{ template "fullname" . }}-server
+          items:
+          - key: cruise-config.xml
+            path: cruise-config.xml
